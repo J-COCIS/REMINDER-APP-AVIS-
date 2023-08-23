@@ -6,5 +6,5 @@ A new Flutter project.
 
 This project is a starting point for a Flutter application.
 
-Designed and developed to sove the problem of the Forgrtfulness as is based on 
+Designed and developed to sove the problem of the Forgetfulness as is based on 
 both the scheduled and Location-based Reminders.

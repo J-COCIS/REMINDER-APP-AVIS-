@@ -17,7 +17,6 @@ void main() async {
 
   // Initialize hive databases
   await Hive.initFlutter();
-
   Hive.registerAdapter<Reminder>(ReminderAdapter());
   Hive.registerAdapter<Place>(PlaceAdapter());
   Hive.registerAdapter<Point>(PointAdapter());

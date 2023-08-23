@@ -13,6 +13,7 @@ import '../models/reminder_db.dart';
 import 'package:provider/provider.dart';
 
 import '../utilities/location.dart';
+import 'bottom_reminder_modal_sheet.dart';
 
 class ReminderTile extends StatefulWidget {
   final bool isLocationBased;

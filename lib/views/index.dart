@@ -13,6 +13,7 @@ import 'account_view.dart';
 import 'body_widgets/profile_body.dart';
 import 'reminders_view.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_application_demo/utilities/database_ops.dart';
 
 class IndexView extends StatefulWidget {
   const IndexView({super.key});
@@ -21,7 +22,7 @@ class IndexView extends StatefulWidget {
   _IndexViewState createState() => _IndexViewState();
 }
 
-class _IndexViewState extends State<IndexView> {
+class _IndexViewState extends State<IndexView> with WidgetsBindingObserver {
   int _index = 0;
 
   // int _index = 1;
@@ -29,6 +30,42 @@ class _IndexViewState extends State<IndexView> {
     const RemindersView(),
     const AccountView(),
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    positionStream.cancel();
+    super.dispose();
+  }
+
+  @override
+  Future<bool> didPopRoute() async {
+    writeData(context);
+    return false;
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    switch (state) {
+      case AppLifecycleState.resumed:
+        readData(context);
+        break;
+      case AppLifecycleState.paused:
+        writeData(context);
+        break;
+      case AppLifecycleState.detached:
+        writeData(context);
+        break;
+      default:
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

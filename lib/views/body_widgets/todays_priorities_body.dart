@@ -84,7 +84,6 @@ class _TodaysPrioritiesBodyState extends State<TodaysPrioritiesBody> {
                         );
                       }));
                     }
-                    reminderDB.reminderUpdate(simple);
                   },
                   deleteCallBack: () {
                     reminderDB.deleteReminder(simple);

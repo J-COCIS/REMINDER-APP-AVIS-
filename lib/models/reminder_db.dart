@@ -16,7 +16,6 @@ late StreamSubscription<Position> positionStream;
 
 // Hive boxes
 late Box boxReminders;
-late Box boxFavorites;
 late Box boxPreferences;
 
 class ReminderDB extends ChangeNotifier {
@@ -139,6 +138,7 @@ class ReminderDB extends ChangeNotifier {
 
     // _firestore.collection('reminders').document('wgbhYkrUEKDMnsvYTiHZ')
     notifyListeners();
+    notify = false;
   }
 
   Reminder? reminderRead({int? index, String? id}) {
@@ -163,7 +163,7 @@ class ReminderDB extends ChangeNotifier {
         .toList();
   }
 
-  List<Reminder> reminderAll() {
+  List<Reminder> reminderAll([param0]) {
     return _reminderList;
   }
 

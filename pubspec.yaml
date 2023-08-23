@@ -92,7 +92,8 @@ dev_dependencies:
   latlong2: ^0.8.1
   url_launcher: ^6.1.8
   uuid: ^3.0.7
-  
+  hive_generator: ^2.0.1
+  build_runner: ^2.3.3
 
 
   flutter_lints: ^2.0.1

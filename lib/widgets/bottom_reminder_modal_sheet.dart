@@ -97,6 +97,15 @@ class BottomReminderSheetState extends State<BottomReminderSheet> {
     _desc.dispose();
   }
 
+  void checkIsEdit() {
+    setState(() {
+      _isEdit = (Provider.of<BottomReminderSheet>(context).appBarTitle ==
+              'Edit Reminder'
+          ? false
+          : true);
+    });
+  }
+
 // ignore: missing_return
   Future<void> onSelectNotification(response) async {
     print('payload $response');
@@ -364,36 +373,39 @@ class BottomReminderSheetState extends State<BottomReminderSheet> {
                 SizedBox(height: 15.0.h),
                 Column(
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Material(
-                          color: Colors.transparent,
-                          child: Text(
-                            'Remind me at a location',
-                            style: TextStyle(
-                              fontSize: 20.0,
-                              fontFamily: 'Fantasque',
-                              color: Colors.black,
+                    Visibility(
+                      visible: !_isEdit,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Material(
+                            color: Colors.transparent,
+                            child: Text(
+                              'Remind me at a location',
+                              style: TextStyle(
+                                fontSize: 20.0,
+                                fontFamily: 'Fantasque',
+                                color: Colors.black,
+                              ),
                             ),
                           ),
-                        ),
-                        FlutterSwitch(
-                          width: 48.0.w,
-                          height: 28.0.h,
-                          valueFontSize: 20.0,
-                          toggleSize: 22.0.h,
-                          value: _isSwitched,
-                          borderRadius: 30.0.w,
-                          inactiveColor: Colors.black,
-                          activeColor: Colors.lightBlueAccent,
-                          onToggle: (val) {
-                            setState(() {
-                              _isSwitched = val;
-                            });
-                          },
-                        ),
-                      ],
+                          FlutterSwitch(
+                            width: 48.0.w,
+                            height: 28.0.h,
+                            valueFontSize: 20.0,
+                            toggleSize: 22.0.h,
+                            value: _isSwitched,
+                            borderRadius: 30.0.w,
+                            inactiveColor: Colors.black,
+                            activeColor: Colors.lightBlueAccent,
+                            onToggle: (val) {
+                              setState(() {
+                                _isSwitched = val;
+                              });
+                            },
+                          ),
+                        ],
+                      ),
                     ),
                     SizedBox(height: 15.0.h),
                     Visibility(
@@ -456,7 +468,7 @@ class BottomReminderSheetState extends State<BottomReminderSheet> {
                       ),
                     ),
                   ],
-                ),
+                )
               ],
             ),
           ),
@@ -537,6 +549,15 @@ class BottomReminderSheetState extends State<BottomReminderSheet> {
                             date: _date.text,
                             time: _time.text,
                           );
+
+                          Provider.of<ReminderDB>(context, listen: false)
+                              .addReminder(
+                            _title.text,
+                            _desc.text,
+                            _date.text,
+                            _time.text,
+                          );
+                          appStates.deleteReminder(oldReminder);
 
                           appStates.reminderUpdate(newReminder);
 

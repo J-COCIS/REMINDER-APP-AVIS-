@@ -521,6 +521,17 @@ class LocationView extends State<SetLocationView> {
 
                     newReminder.traveledDistance(position);
                     appStates.reminderUpdate(newReminder);
+                    appStates.deleteReminder(oldReminder);
+
+                    Provider.of<ReminderDB>(context, listen: false)
+                        .addReminderBasedOnLocation(
+                      _titleController.text,
+                      _descriptionController.text,
+                      destination,
+                      0.0,
+                      true,
+                      false,
+                    );
                   }
 
                   if (context.mounted) {
